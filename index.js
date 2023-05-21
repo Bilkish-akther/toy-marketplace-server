@@ -115,6 +115,6 @@ app.get('/', (req,res) => {
     })
     
     app.listen(port , () =>{
-        console.log(`toy Market Place Server is Running on port ${port}`);
+        console.log(`Toy shop marketplace Place Server is Running on port ${port}`);
     })
     
