@@ -91,9 +91,6 @@ async function run() {
 
 
 
-  
-  //get Toy List from DB
-
   app.get('/toysList', async(req ,res ) => {
     const cursor = toysCollection.find().limit(20);
     const result = await cursor.toArray();
@@ -109,20 +106,12 @@ async function run() {
 }
 
 
-
 run().catch(console.dir);
-
-
-
-
-
-
-
 
 
 app.get('/', (req,res) => {
 
-    res.send('Toy Market Place is running ')
+    res.send('Toy  is running ')
     })
     
     app.listen(port , () =>{
