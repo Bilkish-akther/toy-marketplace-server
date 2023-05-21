@@ -80,10 +80,7 @@ app.put("/updateToy/:id", async (req, res) => {
       res.send(result);
     });
 
-
-
-
-    app.get('/toysList', async (req, res) => {
+     app.get('/toysList', async (req, res) => {
       const cursor = toysCollection.find().limit(20);
       const result = await cursor.toArray();
       res.send(result);
