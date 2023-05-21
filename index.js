@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
-const  port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 
 // middleware 
@@ -32,76 +32,73 @@ async function run() {
     // const serviceCollection = client.db('toyUser').collection('toyService');
     const toysCollection = client.db('dollUser').collection('allDoll');
 
-    app.get('/toyService', async(req ,res ) => {
+    app.get('/toyService', async (req, res) => {
 
-        const cursor = serviceCollection.find();
-        const result = await cursor.toArray();
-        res.send(result);
-    
-       })
+      const cursor = serviceCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
 
-
-        //add toy in dataBase
-   app.post("/post-toy", async (req, res) => {
-    const body = req.body;
-    console.log(body);
-    const result = await toysCollection.insertOne(body);
-    if (result?.insertedId) {
-      return res.status(200).send(result);
-    } else {
-      return res.status(404).send({
-        message: "can not insert try again later",
-        status: false,
-      });
-    }
-  });
+    })
 
 
-
-
-   //update toy in dataBase
-   app.put("/updateToy/:id", async (req, res) => {
-    const id = req.params.id;
-    const body = req.body;
-    console.log(body);
-    const filter = { _id: new ObjectId(id) };
-    const updateDoc = {
-      $set: {
-        price: body.price,
-        quantity: body.quantity,
-        description: body.description,
-      },
-    };
-    const result = await toysCollection.updateOne(filter, updateDoc);
-    res.send(result);
-  });
-
-
-
-  
-
-
-   app.delete("/deleteToy/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) }
-    const result = await toysCollection.deleteOne(query);
-    res.send(result);
-  });
+    //add toy in dataBase
+    app.post("/post-toy", async (req, res) => {
+      const body = req.body;
+      console.log(body);
+      const result = await toysCollection.insertOne(body);
+      if (result?.insertedId) {
+        return res.status(200).send(result);
+      } else {
+        return res.status(404).send({
+          message: "can not insert try again later",
+          status: false,
+        });
+      }
+    });
 
 
 
 
-  app.get('/toysList', async(req ,res ) => {
-    const cursor = toysCollection.find().limit(20);
-    const result = await cursor.toArray();
-    res.send(result);
-   })
+ 
+    app.put("/updateToy/:id", async (req, res) => {
+      const id = req.params.id;
+      const body = req.body;
+      console.log(body);
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          price: body.price,
+          quantity: body.quantity,
+          description: body.description,
+        },
+      };
+      const result = await toysCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
+
+
+
+    app.delete("/deleteToy/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await toysCollection.deleteOne(query);
+      res.send(result);
+    });
+
+
+
+
+    app.get('/toysList', async (req, res) => {
+      const cursor = toysCollection.find().limit(20);
+      const result = await cursor.toArray();
+      res.send(result);
+    })
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    
-  
+
+
   }
 }
 
@@ -109,12 +106,11 @@ async function run() {
 run().catch(console.dir);
 
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
 
-    res.send('Toy  is running ')
-    })
-    
-    app.listen(port , () =>{
-        console.log(`Toy shop marketplace Place Server is Running on port ${port}`);
-    })
-    
+  res.send('Toy  is running ')
+})
+
+app.listen(port, () => {
+  console.log(`Toy shop marketplace Place Server is Running on port ${port}`);
+})
