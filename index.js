@@ -29,7 +29,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
 
-    // const serviceCollection = client.db('toyUser').collection('toyService');
+ 
     const toysCollection = client.db('dollUser').collection('allDoll');
 
     app.get('/toyService', async (req, res) => {
@@ -40,8 +40,6 @@ async function run() {
 
     })
 
-
-    //add toy in dataBase
     app.post("/post-toy", async (req, res) => {
       const body = req.body;
       console.log(body);
@@ -57,10 +55,7 @@ async function run() {
     });
 
 
-
-
- 
-    app.put("/updateToy/:id", async (req, res) => {
+app.put("/updateToy/:id", async (req, res) => {
       const id = req.params.id;
       const body = req.body;
       console.log(body);
